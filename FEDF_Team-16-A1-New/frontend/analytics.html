@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 Live Analytics - Cosmic DevSpace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/navbar.css">
+  <link rel="stylesheet" href="./css/analytics.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+</head>
+<body class="analytics-page">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <a href="index.html">🚀 Cosmic DevSpace</a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+      <li><a href="projects.html" class="nav-link">Projects</a></li>
+      <li><a href="blog.html" class="nav-link">Blog</a></li>
+      <li><a href="guestbook.html" class="nav-link">Guestbook</a></li>
+      <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="navbar-auth" id="authLoggedOut">
+      <a href="login.html" class="nav-link">Sign In</a>
+      <a href="register.html" class="btn-register">Register</a>
+    </div>
+    <div class="navbar-user" id="authLoggedIn" style="display: none;">
+      <span class="user-greeting">Hi, <span id="userName">User</span></span>
+      <div class="user-menu">
+        <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
+        <div class="dropdown-menu">
+          <a href="profile.html">👤 Profile</a>
+          <a href="admin.html" id="adminLink" style="display: none;">⚙️ Admin</a>
+          <a href="settings.html">⚙️ Settings</a>
+          <a href="#" id="logoutBtn">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Floating Orbs -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="orb orb4"></div>
+
+  <!-- Hero Section -->
+  <section class="analytics-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">📊 Live Analytics Dashboard 📊</h1>
+      <p class="hero-subtitle">Real-time insights updating every 2 seconds</p>
+      <div class="live-indicator">
+        <span class="pulse-dot"></span>
+        <span class="live-text">LIVE</span>
+        <span class="update-text" id="lastUpdate">Updated just now</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="container analytics-container">
+    <!-- Top Metrics Row (LIVE) -->
+    <div class="metrics-grid">
+      <div class="metric-card live">
+        <div class="metric-icon">👁️</div>
+        <div class="metric-label">LIVE VISITORS</div>
+        <div class="metric-value" id="liveVisitors" data-metric="liveVisitors">142</div>
+        <div class="metric-status online">
+          <span class="status-dot"></span>
+          <span>Online Now</span>
+        </div>
+        <div class="metric-growth">Peak: <span id="peakVisitors">245</span></div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-icon">📍</div>
+        <div class="metric-label">UNIQUE TODAY</div>
+        <div class="metric-value" id="uniqueToday" data-metric="uniqueToday">87</div>
+        <div class="metric-growth positive">
+          <span class="growth-arrow">↑</span>
+          <span>+18 today</span>
+        </div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-icon">📄</div>
+        <div class="metric-label">TOTAL VIEWS</div>
+        <div class="metric-value" id="totalViews" data-metric="totalViews">45,230</div>
+        <div class="metric-growth positive">
+          <span class="growth-arrow">↑</span>
+          <span>+12% today</span>
+        </div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-icon">⏰</div>
+        <div class="metric-label">AVG SESSION</div>
+        <div class="metric-value" id="avgSession" data-metric="avgSession">5m 23s</div>
+        <div class="metric-growth positive">
+          <span class="growth-arrow">↑</span>
+          <span>+8% today</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+      <!-- Left Sidebar: Live Activity Feed -->
+      <aside class="activity-sidebar">
+        <div class="sidebar-header">
+          <h3>🔔 LIVE ACTIVITY</h3>
+          <span class="time-range">Last 30 mins</span>
+        </div>
+        <div class="activity-feed" id="activityFeed">
+          <!-- Sample activities -->
+          <div class="activity-item">
+            <span class="activity-time">🟢 Just now</span>
+            <p class="activity-desc">Visitor from <strong>New Delhi</strong> viewed <strong>Portfolio</strong></p>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">🟢 2 mins ago</span>
+            <p class="activity-desc">Someone liked <strong>"E-commerce"</strong> project</p>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">🟢 5 mins ago</span>
+            <p class="activity-desc">New comment on <strong>"React Tips"</strong> blog post</p>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">🟢 8 mins ago</span>
+            <p class="activity-desc">Guestbook entry signed by <strong>Anonymous</strong></p>
+          </div>
+          <div class="activity-item">
+            <span class="activity-time">🟢 12 mins ago</span>
+            <p class="activity-desc">Visitor viewed <strong>Analytics</strong> page (This page!)</p>
+          </div>
+        </div>
+        <button class="load-more-btn" id="loadMoreActivity">Load More Events</button>
+      </aside>
+
+      <!-- Main Content: Charts & Analytics -->
+      <div class="main-content">
+        <!-- Filter Controls -->
+        <div class="controls-bar">
+          <div class="filter-group">
+            <label>Time Range:</label>
+            <select id="timeRange" class="filter-select">
+              <option value="live">🔴 Live (Real-time)</option>
+              <option value="1h">Last 1 Hour</option>
+              <option value="24h" selected>Last 24 Hours</option>
+              <option value="7d">Last 7 Days</option>
+              <option value="custom">Custom Range</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label class="toggle-label">
+              <input type="checkbox" id="autoRefresh" checked>
+              <span>Auto-Refresh</span>
+              <small>(Every 2 seconds)</small>
+            </label>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn-secondary" id="refreshBtn">🔄 Refresh</button>
+            <button class="btn-secondary" id="exportPDF">📊 Export PDF</button>
+            <button class="btn-secondary" id="exportCSV">📥 Export CSV</button>
+          </div>
+        </div>
+
+        <!-- Chart: Live Visitor Trend -->
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Visitors (Last 24 Hours) — LIVE UPDATING</h3>
+            <span class="chart-status">🟢 Updating every 2 min</span>
+          </div>
+          <canvas id="visitorTrendChart"></canvas>
+        </div>
+
+        <!-- Two-Column Charts -->
+        <div class="charts-row">
+          <div class="chart-container half">
+            <div class="chart-header">
+              <h3>Page Views by Section (Real-Time)</h3>
+            </div>
+            <canvas id="pageViewsChart"></canvas>
+          </div>
+          
+          <div class="chart-container half">
+            <div class="chart-header">
+              <h3>Traffic Sources</h3>
+            </div>
+            <canvas id="trafficSourceChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Project Engagement Chart -->
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Top Projects (Real-Time Engagement)</h3>
+          </div>
+          <canvas id="projectEngagementChart"></canvas>
+        </div>
+
+        <!-- Blog Performance -->
+        <div class="blog-performance">
+          <h3>📝 Top Blog Posts (Live Activity)</h3>
+          <div class="blog-list" id="blogPerformanceList">
+            <div class="blog-item">
+              <span class="blog-title">"Future of Space UI"</span>
+              <span class="blog-stats">👁️ 1,245 views 💬 +3 new comments</span>
+            </div>
+            <div class="blog-item">
+              <span class="blog-title">"Particles 101"</span>
+              <span class="blog-stats">👁️ 856 views 💬 +1 new comment</span>
+            </div>
+            <div class="blog-item">
+              <span class="blog-title">"Making Starfields Alive"</span>
+              <span class="blog-stats">👁️ 643 views 💬 +2 new comments</span>
+            </div>
+            <div class="blog-item">
+              <span class="blog-title">"Cosmic Gradients"</span>
+              <span class="blog-stats">👁️ 412 views 💬 no new activity</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Engagement Metrics -->
+        <div class="engagement-panel">
+          <h3>📊 TODAY'S ENGAGEMENT (Real-Time)</h3>
+          <div class="engagement-grid">
+            <div class="engagement-item">
+              <span class="label">Guestbook Entries:</span>
+              <span class="value"><span id="guestbookEntries">27</span> <small class="change positive">(↑ +5 this hour)</small></span>
+            </div>
+            <div class="engagement-item">
+              <span class="label">Blog Comments:</span>
+              <span class="value"><span id="blogComments">43</span> <small class="change positive">(↑ +3 this hour)</small></span>
+            </div>
+            <div class="engagement-item">
+              <span class="label">Project Likes:</span>
+              <span class="value"><span id="projectLikes">156</span> <small class="change positive">(↑ +12 this hour)</small></span>
+            </div>
+            <div class="engagement-item">
+              <span class="label">Portfolio Views:</span>
+              <span class="value"><span id="portfolioViews">2,450</span> <small class="change positive">(↑ +234 this hr)</small></span>
+            </div>
+            <div class="engagement-item">
+              <span class="label">New Users:</span>
+              <span class="value"><span id="newUsers">8</span> <small class="change positive">(↑ +2 this hour)</small></span>
+            </div>
+            <div class="engagement-item">
+              <span class="label">Bounce Rate:</span>
+              <span class="value"><span id="bounceRate">12%</span> <small class="change negative">(↓ -2% from avg)</small></span>
+            </div>
+            <div class="engagement-item">
+              <span class="label">Avg Time on Site:</span>
+              <span class="value"><span id="avgTimeOnSite">5m 23s</span> <small class="change positive">(↑ +1m from avg)</small></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    &copy; <span id="year"></span> Cosmic DevSpace. All rights reserved.
+  </footer>
+
+  <script src="./js/app.js"></script>
+  <script src="./js/api-client.js"></script>
+  <script src="./js/analytics.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="./js/navbar.js"></script>
+</body>
+</html>

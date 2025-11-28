@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔧 Projects - Cosmic DevSpace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/navbar.css">
+  <link rel="stylesheet" href="./css/projects.css">
+</head>
+<body class="projects-page">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <a href="index.html">🚀 Cosmic DevSpace</a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+      <li><a href="projects.html" class="nav-link">Projects</a></li>
+      <li><a href="blog.html" class="nav-link">Blog</a></li>
+      <li><a href="guestbook.html" class="nav-link">Guestbook</a></li>
+      <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="navbar-auth" id="authLoggedOut">
+      <a href="login.html" class="nav-link">Sign In</a>
+      <a href="register.html" class="btn-register">Register</a>
+    </div>
+    <div class="navbar-user" id="authLoggedIn" style="display: none;">
+      <span class="user-greeting">Hi, <span id="userName">User</span></span>
+      <div class="user-menu">
+        <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
+        <div class="dropdown-menu">
+          <a href="profile.html">👤 Profile</a>
+          <a href="admin.html" id="adminLink" style="display: none;">⚙️ Admin</a>
+          <a href="settings.html">⚙️ Settings</a>
+          <a href="#" id="logoutBtn">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Floating Orbs Background -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="orb orb4"></div>
+
+  <!-- Hero Section -->
+  <section class="projects-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">🔧 Curated Set of Experiments and Apps 🔧</h1>
+      <p class="hero-subtitle">From prototypes to production-ready applications</p>
+      
+      <!-- Stats Badges -->
+      <div class="stats-container">
+        <div class="stat-badge">
+          <span class="stat-icon">📁</span>
+          <div class="stat-info">
+            <span class="stat-value" id="totalProjects">0</span>
+            <span class="stat-label">Total Projects</span>
+          </div>
+        </div>
+        <div class="stat-badge">
+          <span class="stat-icon">🚀</span>
+          <div class="stat-info">
+            <span class="stat-value" id="activeProjects">0</span>
+            <span class="stat-label">Active Projects</span>
+          </div>
+        </div>
+        <div class="stat-badge">
+          <span class="stat-icon">👥</span>
+          <div class="stat-info">
+            <span class="stat-value" id="totalContributors">0</span>
+            <span class="stat-label">Contributors</span>
+          </div>
+        </div>
+        <div class="stat-badge">
+          <span class="stat-icon">💻</span>
+          <div class="stat-info">
+            <span class="stat-value" id="totalTechnologies">0</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container projects-container">
+    <!-- Filters & Controls -->
+    <div class="controls-section">
+      <div class="controls-row">
+        <!-- Category Filter -->
+        <div class="control-group">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter" class="filter-select">
+            <option value="">All Categories</option>
+            <option value="webapp">Web App</option>
+            <option value="mobile">Mobile App</option>
+            <option value="desktop">Desktop App</option>
+            <option value="api">API/Backend</option>
+            <option value="datascience">Data Science</option>
+            <option value="game">Game Dev</option>
+            <option value="devops">DevOps</option>
+            <option value="blockchain">Blockchain</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="control-group">
+          <label for="statusFilter">Status</label>
+          <select id="statusFilter" class="filter-select">
+            <option value="">All Statuses</option>
+            <option value="active">🟢 Active</option>
+            <option value="completed">🔵 Completed</option>
+            <option value="archived">⚪ Archived</option>
+            <option value="onhold">🟡 On Hold</option>
+            <option value="planning">🟣 Planning</option>
+          </select>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="control-group search-group">
+          <label for="searchInput">Search</label>
+          <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search by project name, tech, or tag...">
+          <span class="search-count" id="searchCount"></span>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="control-group">
+          <label for="sortSelect">Sort By</label>
+          <select id="sortSelect" class="filter-select">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="popular">Most Popular</option>
+            <option value="contributed">Most Contributed</option>
+            <option value="trending">Trending</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+          </select>
+        </div>
+
+        <!-- View Toggle -->
+        <div class="control-group view-toggle">
+          <button class="view-btn active" data-view="grid" title="Grid View">
+            <span>⊞⊞⊞</span>
+          </button>
+          <button class="view-btn" data-view="list" title="List View">
+            <span>☰</span>
+          </button>
+        </div>
+
+        <!-- My Projects Toggle (for authenticated users) -->
+        <div class="control-group my-projects-toggle" id="myProjectsToggle" style="display: none;">
+          <label class="toggle-switch">
+            <input type="checkbox" id="showMyProjectsOnly" checked>
+            <span class="toggle-slider"></span>
+          </label>
+          <label for="showMyProjectsOnly" class="toggle-label">My Projects Only</label>
+        </div>
+
+        <!-- Add Project Button -->
+        <button class="btn-gradient add-project-btn" id="addProjectBtn">+ Create Project</button>
+      </div>
+    </div>
+
+    <!-- Projects Gallery -->
+    <div class="projects-gallery" id="projectsGallery">
+      <!-- Cards will be dynamically inserted here -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state hidden" id="emptyState">
+      <div class="empty-icon">🚀</div>
+      <h3>No Projects Yet</h3>
+      <p>Ready to launch your first project? Start building something amazing today!</p>
+      <button class="btn-gradient" id="createFirstProject">+ Create Project</button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner hidden" id="loadingSpinner">
+      <div class="spinner"></div>
+      <p>Loading projects...</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination hidden" id="pagination">
+      <div class="pagination-info" id="paginationInfo">Showing 1-12 of 48 items</div>
+      <div class="pagination-controls">
+        <button class="page-btn" id="prevPage" disabled>← Previous</button>
+        <div class="page-numbers" id="pageNumbers"></div>
+        <button class="page-btn" id="nextPage">Next →</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Detail View Modal -->
+  <div id="detailModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h2 id="detailTitle">Project Details</h2>
+        <button class="icon-btn" id="closeDetailModal">✕</button>
+      </div>
+      <div class="modal-body detail-content" id="detailContent">
+        <!-- Content will be dynamically inserted -->
+      </div>
+    </div>
+  </div>
+
+    <!-- Upload/Edit Modal (same as Portfolio) -->
+    <div id="projectModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-card">
+        <header class="modal-header">
+          <h2 id="projectModalTitle">Add Project</h2>
+          <button class="icon-btn" id="closeProjectModal" aria-label="Close modal">✕</button>
+        </header>
+        <form id="projectForm" class="form-grid" novalidate>
+          <div class="field">
+            <label for="projTitle">Project Title <span class="required">*</span></label>
+            <input id="projTitle" name="title" type="text" required maxlength="100" placeholder="e.g., AI-Powered Task Manager">
+            <span class="char-counter"><span id="titleCounter">0</span>/100</span>
+          </div>
+          
+          <div class="field">
+            <label for="projDesc">Description <span class="required">*</span></label>
+            <textarea id="projDesc" name="description" rows="4" required maxlength="500" placeholder="Describe your project..."></textarea>
+            <span class="char-counter"><span id="descCounter">0</span>/500</span>
+          </div>
+          
+          <div class="field">
+            <label for="projCategory">Category <span class="required">*</span></label>
+            <select id="projCategory" name="category" required>
+              <option value="" disabled selected>Select a category</option>
+              <option value="webapp">Web App</option>
+              <option value="mobile">Mobile App</option>
+              <option value="desktop">Desktop App</option>
+              <option value="api">API/Backend</option>
+              <option value="datascience">Data Science</option>
+              <option value="game">Game Dev</option>
+              <option value="devops">DevOps</option>
+              <option value="blockchain">Blockchain</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label for="projStatus">Status <span class="required">*</span></label>
+            <select id="projStatus" name="status" required>
+              <option value="planning">🟣 Planning</option>
+              <option value="active" selected>🟢 Active</option>
+              <option value="completed">🔵 Completed</option>
+              <option value="onhold">🟡 On Hold</option>
+              <option value="archived">⚪ Archived</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label>Featured Image <span class="required">*</span> <span class="field-hint">(Max 5MB)</span></label>
+            <div id="dropzone" class="dropzone">
+              <input id="fileInput" type="file" accept="image/*" hidden>
+              <div class="dz-instructions">
+                <strong>📁 Drag & drop</strong> image here, or <button type="button" class="link-btn" id="chooseFiles">browse</button>
+              </div>
+            </div>
+            <div id="previewGrid" class="preview-grid"></div>
+          </div>
+          
+          <div class="field">
+            <label for="projTech">Technologies <span class="field-hint">(Max 10)</span></label>
+            <input id="projTech" name="technologies" type="text" placeholder="e.g., React, Node.js, PostgreSQL">
+            <div class="tech-pills" id="techPills"></div>
+          </div>
+          
+          <div class="field">
+            <label for="projGithub">GitHub Repository</label>
+            <input id="projGithub" name="github" type="url" placeholder="https://github.com/username/repo">
+          </div>
+          
+          <div class="field">
+            <label for="projLive">Live Demo URL</label>
+            <input id="projLive" name="demo" type="url" placeholder="https://your-demo.com">
+          </div>
+          
+          <div class="field">
+            <label for="projDocs">Documentation URL</label>
+            <input id="projDocs" name="docs" type="url" placeholder="https://docs.yourproject.com">
+          </div>
+          
+          <div class="field">
+            <label for="projDifficulty">Difficulty Level</label>
+            <select id="projDifficulty" name="difficulty">
+              <option value="">Select difficulty</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+          
+          <div class="actions">
+            <button type="button" class="btn-secondary" id="cancelProject">Cancel</button>
+            <button type="button" class="btn-secondary" id="saveDraft">Save as Draft</button>
+            <button type="submit" class="btn-gradient">Create Project</button>
+          </div>
+          
+          <div id="formMsg" class="form-message"></div>
+        </form>
+      </div>
+    </div>
+
+  <footer class="site-footer">
+    &copy; <span id="year"></span> Cosmic DevSpace. All rights reserved.
+  </footer>
+
+  <script src="./js/app.js?v=2025110711"></script>
+  <script src="./js/projects.js?v=2025110711"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="./js/navbar.js?v=2025110711"></script>
+</body>
+</html>

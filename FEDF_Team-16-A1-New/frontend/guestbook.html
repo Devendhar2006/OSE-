@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📖 Guestbook - Cosmic DevSpace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/navbar.css">
+  <link rel="stylesheet" href="./css/guestbook.css">
+</head>
+<body class="guestbook-page">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <a href="index.html">🚀 Cosmic DevSpace</a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+      <li><a href="projects.html" class="nav-link">Projects</a></li>
+      <li><a href="blog.html" class="nav-link">Blog</a></li>
+      <li><a href="guestbook.html" class="nav-link">Guestbook</a></li>
+      <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="navbar-auth" id="authLoggedOut">
+      <a href="login.html" class="nav-link">Sign In</a>
+      <a href="register.html" class="btn-register">Register</a>
+    </div>
+    <div class="navbar-user" id="authLoggedIn" style="display: none;">
+      <span class="user-greeting">Hi, <span id="navUserName">User</span></span>
+      <div class="user-menu">
+        <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
+        <div class="dropdown-menu">
+          <a href="profile.html">👤 Profile</a>
+          <a href="admin.html" id="adminLink" style="display: none;">⚙️ Admin</a>
+          <a href="settings.html">⚙️ Settings</a>
+          <a href="#" id="logoutBtn">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Floating Orbs Background -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="orb orb4"></div>
+
+  <!-- Hero Section -->
+  <section class="guestbook-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">📖 Guestbook - Say Something Nice! 📖</h1>
+      <p class="hero-subtitle">Join our cosmic community</p>
+      
+      <!-- Stats Badges -->
+      <div class="stats-container">
+        <div class="stat-badge">
+          <span class="stat-icon">📝</span>
+          <div class="stat-info">
+            <span class="stat-value" id="totalEntries">0</span>
+            <span class="stat-label">Total Entries</span>
+          </div>
+        </div>
+        <div class="stat-badge">
+          <span class="stat-icon">🕐</span>
+          <div class="stat-info">
+            <span class="stat-value" id="recentEntries">0</span>
+            <span class="stat-label">Last 7 Days</span>
+          </div>
+        </div>
+        <div class="stat-badge">
+          <span class="stat-icon">👤</span>
+          <div class="stat-info">
+            <span class="stat-value" id="mostActive">—</span>
+            <span class="stat-label">Most Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container guestbook-container">
+    <!-- Sign Guestbook Form -->
+    <div class="guestbook-form-section">
+      <h2 class="section-title">✍️ Leave Your Mark</h2>
+      <form id="guestbookForm" class="guestbook-form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="entryName">Your Name <span class="required">*</span></label>
+            <input id="entryName" name="name" type="text" required maxlength="50" placeholder="John Doe">
+          </div>
+          <div class="field">
+            <label for="entryEmail">Email <span class="field-hint">(Optional)</span></label>
+            <input id="entryEmail" name="email" type="email" placeholder="john@example.com">
+          </div>
+        </div>
+        
+        <div class="field">
+          <label for="entryAvatar">Avatar URL <span class="field-hint">(Optional)</span></label>
+          <input id="entryAvatar" name="avatar" type="url" placeholder="https://your-avatar.jpg">
+          <div class="avatar-preview" id="avatarPreview"></div>
+        </div>
+        
+        <div class="field">
+          <label for="projectLink">🎯 Commenting About <span class="field-hint">(Optional)</span></label>
+          <select id="projectLink" name="projectLink" class="project-select">
+            <option value="">General Message</option>
+            <!-- Projects will be loaded dynamically -->
+          </select>
+        </div>
+        
+        <div class="field">
+          <label for="entryMessage">Message <span class="required">*</span></label>
+          <div class="message-input-wrapper">
+            <textarea 
+              id="entryMessage" 
+              name="message" 
+              rows="3" 
+              required 
+              maxlength="240" 
+              placeholder="Say something nice... 😊"
+            ></textarea>
+            <button type="button" class="emoji-btn" id="emojiBtn" title="Add Emoji">😊</button>
+          </div>
+          <span class="char-counter"><span id="messageCharCount">0</span>/240</span>
+        </div>
+        
+        <div class="field captcha-field">
+          <label for="captchaAnswer">Security Check <span class="required">*</span></label>
+          <div class="captcha-container">
+            <span class="captcha-question" id="captchaQuestion">6 + 8 = ?</span>
+            <input id="captchaAnswer" name="captcha" type="number" required placeholder="Enter answer">
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" id="previewBtn">👁️ Preview</button>
+          <button type="submit" class="btn-gradient">📝 Sign Guestbook</button>
+        </div>
+        
+        <div id="formMsg" class="form-message"></div>
+      </form>
+    </div>
+
+    <!-- Filters & Controls -->
+    <div class="controls-section">
+      <div class="controls-row">
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="general">General Messages</button>
+          <button class="filter-btn" data-filter="project-comments">Project Comments</button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="control-group search-group">
+          <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search messages...">
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="control-group">
+          <select id="sortSelect" class="filter-select">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="mostLiked">Most Liked</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guestbook Entries -->
+    <div class="guestbook-entries" id="guestbookEntries">
+      <!-- Entries will be dynamically inserted here -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state hidden" id="emptyState">
+      <div class="empty-icon">📖</div>
+      <h3>No Entries Yet</h3>
+      <p>Be the first to leave a message!</p>
+      <button class="btn-gradient" id="signFirstBtn">📝 Sign Guestbook</button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner hidden" id="loadingSpinner">
+      <div class="spinner"></div>
+      <p>Loading entries...</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination hidden" id="pagination">
+      <div class="pagination-info" id="paginationInfo">Showing 1-10 entries</div>
+      <div class="pagination-controls">
+        <button class="page-btn" id="prevPage" disabled>← Previous</button>
+        <button class="page-btn" id="loadMoreBtn">Load More</button>
+        <button class="page-btn" id="nextPage">Next →</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Preview Modal -->
+  <div id="previewModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Preview Entry</h2>
+        <button class="icon-btn" id="closePreview">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="entry-preview" id="entryPreview">
+          <!-- Preview content will be inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emoji Picker Modal -->
+  <div id="emojiPicker" class="emoji-picker hidden">
+    <div class="emoji-picker-header">
+      <span>Pick an Emoji</span>
+      <button class="icon-btn" id="closeEmoji">✕</button>
+    </div>
+    <div class="emoji-grid">
+      <button class="emoji-option">😊</button>
+      <button class="emoji-option">😀</button>
+      <button class="emoji-option">😁</button>
+      <button class="emoji-option">😎</button>
+      <button class="emoji-option">🤩</button>
+      <button class="emoji-option">🥳</button>
+      <button class="emoji-option">😍</button>
+      <button class="emoji-option">🤗</button>
+      <button class="emoji-option">🙌</button>
+      <button class="emoji-option">👍</button>
+      <button class="emoji-option">👏</button>
+      <button class="emoji-option">🎉</button>
+      <button class="emoji-option">🎊</button>
+      <button class="emoji-option">✨</button>
+      <button class="emoji-option">⭐</button>
+      <button class="emoji-option">🌟</button>
+      <button class="emoji-option">💖</button>
+      <button class="emoji-option">💯</button>
+      <button class="emoji-option">🔥</button>
+      <button class="emoji-option">🚀</button>
+      <button class="emoji-option">🎨</button>
+      <button class="emoji-option">🎯</button>
+      <button class="emoji-option">💡</button>
+      <button class="emoji-option">🌈</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    &copy; <span id="year"></span> Cosmic DevSpace. All rights reserved.
+  </footer>
+
+  <script src="./js/app.js"></script>
+  <script src="./js/guestbook.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="./js/navbar.js"></script>
+</body>
+</html>
